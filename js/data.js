@@ -3,7 +3,6 @@ const STORAGE_KEY = "BOOKSHELF";
 let bookshelfs = [];
 
 /**
-  * Fungsi ini digunakan untuk memeriksa apakah localStorage didukung oleh browser atau tidak
   * 
   * @returns boolean 
   */

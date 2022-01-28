@@ -18,19 +18,6 @@ function makeBookshelf(title, author, year, isCompleted) {
     container.classList.add("item", "shadow")
     container.append(textContainer);
 
-    /*
-    if (isCompleted) {
-        container.append(
-            createUndoButton(),
-            createTrashButton()
-        );
-    } else {
-        container.append(
-            createCheckButton()
-        );
-    }
-    */
-
     return container;
 }
 
