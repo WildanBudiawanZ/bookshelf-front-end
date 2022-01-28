@@ -78,6 +78,10 @@ function addBookshelf() {
 
     uncompletedBookshelfList.append(bookshelf);
     updateDataToStorage();
+
+    $('#bookshelfs').append($('<div class="col-sm-4"><div class="media"><div class="media-left"><img src="assets/book.png" class="media-object" style="width:60px"></div><div class="media-body"><h4 class="media-heading">John Doe</h4><p>Lorem ipsum...</p></div></div></div>'));
+
+
 }
 
 function addTaskToCompleted(taskElement /* HTMLELement */) {
