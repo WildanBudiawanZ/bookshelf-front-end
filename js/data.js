@@ -68,7 +68,7 @@ function findBookshelfIndex(bookshelfId) {
     
     let index = 0
     for (bookshelf of bookshelfs) {
-        if(bookshelf.id === bookshelftId)
+        if(bookshelf.id === bookshelfId)
             return index;
 
         index++;

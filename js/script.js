@@ -1,5 +1,3 @@
-//script
-
 document.addEventListener("DOMContentLoaded", function () {
 
     const submitForm /* HTMLFormElement */ = document.getElementById("form");

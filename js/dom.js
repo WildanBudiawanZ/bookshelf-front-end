@@ -7,18 +7,30 @@ function makeBookshelf(title, author, year, isCompleted) {
     const textTitle = document.createElement("h2");
     textTitle.innerText = title;
 
-    const textAuthor = document.createElement("p");
-    textAuthor.innerText = author;
+    const textAuthor = document.createElement("h4");
+    textAuthor.innerText = author + " (" + year + ")";
 
     const textContainer = document.createElement("div");
-    textContainer.classList.add("inner")
+    textContainer.classList.add("caption")
     textContainer.append(textTitle, textAuthor);
 
     const container = document.createElement("div");
-    container.classList.add("item", "shadow")
+    container.classList.add("col-md-4","shadow")
     container.append(textContainer);
 
+
+    if (isCompleted) {
+        container.append(
+            createTrashButton()
+        );
+    } else {
+        container.append(
+            createTrashButton()
+        );
+    }
+
     return container;
+
 }
 
 function createUndoButton() {
@@ -29,7 +41,7 @@ function createUndoButton() {
 
 function createTrashButton() {
     return createButton("trash-button", function (event) {
-        removeTaskFromCompleted(event.target.parentElement);
+        removeBookshelfFromCompleted(event.target.parentElement);
     });
 }
 
@@ -66,9 +78,6 @@ function addBookshelf() {
     uncompletedBookshelfList.append(bookshelf);
     updateDataToStorage();
 
-    $('#bookshelfs').append($('<div class="col-sm-4"><div class="media"><div class="media-left"><img src="assets/book.png" class="media-object" style="width:60px"></div><div class="media-body"><h4 class="media-heading">John Doe</h4><p>Lorem ipsum...</p></div></div></div>'));
-
-
 }
 
 function addTaskToCompleted(taskElement /* HTMLELement */) {
@@ -89,10 +98,10 @@ function addTaskToCompleted(taskElement /* HTMLELement */) {
     updateDataToStorage();
 }
 
-function removeTaskFromCompleted(taskElement /* HTMLELement */) {
+function removeBookshelfFromCompleted(taskElement /* HTMLELement */) {
 
-    const todoPosition = findTodoIndex(taskElement[TODO_ITEMID]);
-    todos.splice(todoPosition, 1);
+    const bookshelfPosition = findBookshelfIndex(taskElement[BOOKSHELF_ITEMID]);
+    bookshelfs.splice(bookshelfPosition, 1);
 
     taskElement.remove();
     updateDataToStorage();
