@@ -1,159 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Bookshelf Apps</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-
-</head>
-<body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
-
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#myPage">Bookshelf Apps</a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#tambahbuku">Tambah Buku</a></li>
-        <li><a href="#belumdibaca">Belum Dibaca</a></li>
-        <li><a href="#selesaidibaca">Selesai Dibaca</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-
-<div class="jumbotron text-center">
-  <h1>DICODING Academy</h1> 
-  <p>Submission Aplikasi Pengelolaan Data Menggunakan DOM dan Web Storage</p> 
-</div>
-
-<div id="tambahbuku" class="container bg-grey">
-    <h2 class="text-center">Tambah Buku</h2>
-
-    <div class="row">
-      <div class="col-sm-12 slideanim">
-        
-        <form class="form" action="#" id="form">
-            <div class="row">
-                <div class="col-sm-6 form-group">
-                  <input class="form-control" id="title" name="title" placeholder="Judul" type="text" required>
-                </div>
-              </div>
-      
-              <div class="row">
-                  <div class="col-sm-6 form-group">
-                    <input class="form-control" id="author" name="author" placeholder="Penulis" type="text" required>
-                  </div>
-              </div>
-      
-              <div class="row">
-                  <div class="col-sm-6 form-group">
-                    <input class="form-control" id="year" name="year" placeholder="Tahun" type="text" required>
-                  </div>
-              </div>
-      
-              <div class="row">
-                  <div class="col-sm-6 form-group">
-                      <label for="isComplete">Sudah dibaca</label>
-                      <input class="" id="isComplete" name="isComplete" type="checkbox">
-                  </div>
-              </div>
-      
-              <div class="row">
-                <div class="col-sm-6 form-group">
-                  <button class="btn btn-default" type="submit">Simpan</button>
-                </div>
-              </div>
-        </form>
-
-      </div>
-    </div>
-
-    
-</div>
-
-<div id="belumdibaca" class="container-fluid">
-  <div class="text-center">
-    <h2>Rak Belum Dibaca</h2>
-    <h4>Buku-buku yang belum dibaca</h4>
-  </div>
-  <div class="row slideanim">
-
-    <div class="container">
-        <div class="list-item" id="bookshelfs">
-                            
-
-        </div>
-    </div>
-
-</div>
-
-<div id="selesaidibaca" class="container-fluid">
-    <div class="text-center">
-      <h2>Rak Selesai Dibaca</h2>
-      <h4>Buku-buku yang selesai dibaca.</h4>
-    </div>
-    <div class="row slideanim">
-  
+  <head>
+    <title>Bookshelf Apps</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="60">
+    <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
-          <div class="list-item" id="completed-bookshelfs">
-              
-          </div>
+        <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle"
+            data-toggle="collapse"
+            data-target="#myNavbar"
+          >
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#myPage">Bookshelf Apps</a>
+        </div>
+        <div class="collapse navbar-collapse" id="myNavbar">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#tambahbuku">Tambah Buku</a></li>
+            <li><a href="#belumdibaca">Belum Dibaca</a></li>
+            <li><a href="#selesaidibaca">Selesai Dibaca</a></li>
+          </ul>
+        </div>
       </div>
-      
+    </nav>
 
+    <div class="jumbotron text-center">
+      <h1>DICODING Academy</h1>
+      <p>
+        Submission Aplikasi Pengelolaan Data Menggunakan DOM dan Web Storage
+      </p>
     </div>
-  </div>
-<footer class="container-fluid text-center">
-  <a href="#myPage" title="To Top">
-    <span class="glyphicon glyphicon-chevron-up"></span>
-  </a>
-  <p>Bootstrap Theme Made By <a href="https://www.w3schools.com" title="Visit w3schools">www.w3schools.com</a></p>
-</footer>
 
-<script>
-$(document).ready(function(){
-  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-    if (this.hash !== "") {
-      event.preventDefault();
-      var hash = this.hash;
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top
-      }, 900, function(){   
-        window.location.hash = hash;
+    <div id="tambahbuku" class="container bg-grey">
+      <h2 class="text-center">Tambah Buku</h2>
+
+      <div class="row">
+        <div class="col-sm-12 slideanim">
+          <form class="form" action="#" id="form">
+            <div class="row">
+              <div class="col-sm-6 form-group">
+                <input
+                  class="form-control"
+                  id="title"
+                  name="title"
+                  placeholder="Judul"
+                  type="text"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6 form-group">
+                <input
+                  class="form-control"
+                  id="author"
+                  name="author"
+                  placeholder="Penulis"
+                  type="text"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6 form-group">
+                <input
+                  class="form-control"
+                  id="year"
+                  name="year"
+                  placeholder="Tahun"
+                  type="text"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6 form-group">
+                <label for="isComplete">Sudah dibaca</label>
+                <input
+                  class=""
+                  id="isComplete"
+                  name="isComplete"
+                  type="checkbox"
+                />
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6 form-group">
+                <button class="btn btn-default" type="submit">Simpan</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="belumdibaca" class="container-fluid">
+      <div class="text-center">
+        <h2>Rak Belum Dibaca</h2>
+        <h4>Buku-buku yang belum dibaca</h4>
+      </div>
+      <div class="row slideanim">
+        <div class="container">
+          <div class="list-item" id="bookshelfs"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="selesaidibaca" class="container-fluid">
+      <div class="text-center">
+        <h2>Rak Selesai Dibaca</h2>
+        <h4>Buku-buku yang selesai dibaca.</h4>
+      </div>
+      <div class="row slideanim">
+        <div class="container">
+          <div class="list-item" id="completed-bookshelfs"></div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="container-fluid text-center">
+      <a href="#myPage" title="To Top">
+        <span class="glyphicon glyphicon-chevron-up"></span>
+      </a>
+      <p>
+        Bootstrap Theme Made By
+        <a href="https://www.w3schools.com" title="Visit w3schools"
+          >www.w3schools.com</a
+        >
+      </p>
+    </footer>
+
+    <script>
+      $(document).ready(function () {
+        $(".navbar a, footer a[href='#myPage']").on("click", function (event) {
+          if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $("html, body").animate(
+              {
+                scrollTop: $(hash).offset().top,
+              },
+              900,
+              function () {
+                window.location.hash = hash;
+              }
+            );
+          }
+        });
+
+        $(window).scroll(function () {
+          $(".slideanim").each(function () {
+            var pos = $(this).offset().top;
+
+            var winTop = $(window).scrollTop();
+            if (pos < winTop + 600) {
+              $(this).addClass("slide");
+            }
+          });
+        });
       });
-    }
-  });
-  
-  $(window).scroll(function() {
-    $(".slideanim").each(function(){
-      var pos = $(this).offset().top;
-
-      var winTop = $(window).scrollTop();
-        if (pos < winTop + 600) {
-          $(this).addClass("slide");
-        }
-    });
-  });
-})
-</script>
-<script src="js/data.js" type="text/javascript"></script>
-<script src="js/dom.js" type="text/javascript"></script>
-<script src="js/script.js" type="text/javascript"></script>
-
-</body>
+    </script>
+    <script src="js/data.js" type="text/javascript"></script>
+    <script src="js/dom.js" type="text/javascript"></script>
+    <script src="js/script.js" type="text/javascript"></script>
+  </body>
 </html>

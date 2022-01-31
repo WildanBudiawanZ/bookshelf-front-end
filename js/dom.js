@@ -3,139 +3,163 @@ const COMPLETED_LIST_BOOKSHELF_ID = "completed-bookshelfs";
 const BOOKSHELF_ITEMID = "itemId";
 
 function makeBookshelf(title, author, year, isCompleted) {
+  const textTitle = document.createElement("h2");
+  textTitle.innerText = title;
 
-    const textTitle = document.createElement("h2");
-    textTitle.innerText = title;
+  const textAuthor = document.createElement("h4");
+  textAuthor.innerText = author + " - " + year;
 
-    const textAuthor = document.createElement("h4");
-    textAuthor.innerText = author + " (" + year + ")";
+  const textContainer = document.createElement("div");
+  textContainer.classList.add("caption");
+  textContainer.append(textTitle, textAuthor);
 
-    const textContainer = document.createElement("div");
-    textContainer.classList.add("caption")
-    textContainer.append(textTitle, textAuthor);
+  const container = document.createElement("div");
+  container.classList.add("col-md-4", "shadow");
+  container.append(textContainer);
 
-    const container = document.createElement("div");
-    container.classList.add("col-md-4","shadow")
-    container.append(textContainer);
+  if (isCompleted) {
+    container.append(createTrashButton());
+  } else {
+    container.append(createTrashButton());
+    container.append(createFinishedButton());
+  }
 
-
-    if (isCompleted) {
-        container.append(
-            createTrashButton()
-        );
-    } else {
-        container.append(
-            createTrashButton()
-        );
-    }
-
-    return container;
-
+  return container;
 }
 
 function createUndoButton() {
-    return createButton("undo-button", function (event) {
-        undoTaskFromCompleted(event.target.parentElement);
-    });
+  return createButton("undo-button", function (event) {
+    undoTaskFromCompleted(event.target.parentElement);
+  });
 }
 
 function createTrashButton() {
-    return createButton("trash-button", function (event) {
-        removeBookshelfFromCompleted(event.target.parentElement);
-    });
+  return createButton(
+    "trash-button",
+    function (event) {
+      removeBookshelfFromCompleted(event.target.parentElement);
+    },
+    "Hapus"
+  );
 }
 
-function createCheckButton() {
-    return createButton("check-button", function (event) {
-        addTaskToCompleted(event.target.parentElement);
-    });
+function createFinishedButton() {
+  return createButton(
+    "finished-button",
+    function (event) {
+      addBookToFinished(event.target.parentElement);
+    },
+    "Selesai"
+  );
 }
 
-function createButton(buttonTypeClass /* string */, eventListener /* Event */) {
-    const button = document.createElement("button");
-    button.classList.add(buttonTypeClass);
-    button.addEventListener("click", function (event) {
-        eventListener(event);
-        event.stopPropagation();
-    });
-    return button;
+function createButton(buttonTypeClass, eventListener, buttonCaption) {
+  const button = document.createElement("button");
+  button.classList.add(buttonTypeClass);
+  button.textContent = buttonCaption;
+  button.addEventListener("click", function (event) {
+    eventListener(event);
+    event.stopPropagation();
+  });
+  return button;
 }
 
 function addBookshelf() {
-    const uncompletedBookshelfList = document.getElementById(UNCOMPLETED_LIST_BOOKSHELF_ID);
-    
-    const title = document.getElementById("title").value;
-    const author = document.getElementById("author").value;
-    const year = document.getElementById("year").value;
-    const isCompleted = document.getElementById("isComplete").checked;
+  const uncompletedBookshelfList = document.getElementById(
+    UNCOMPLETED_LIST_BOOKSHELF_ID
+  );
+  const completedBookshelfList = document.getElementById(
+    COMPLETED_LIST_BOOKSHELF_ID
+  );
 
-    const bookshelf = makeBookshelf(title, author, year, isCompleted);
-    const BookshelfObject = composeBookshelfObject(title, author, year, isCompleted);
-    
-    bookshelf[BOOKSHELF_ITEMID] = BookshelfObject.id;
-    bookshelfs.push(BookshelfObject);
+  const title = document.getElementById("title").value;
+  const author = document.getElementById("author").value;
+  const year = document.getElementById("year").value;
+  const isCompleted = document.getElementById("isComplete").checked;
 
+  const bookshelf = makeBookshelf(title, author, year, isCompleted);
+  const BookshelfObject = composeBookshelfObject(
+    title,
+    author,
+    year,
+    isCompleted
+  );
+
+  bookshelf[BOOKSHELF_ITEMID] = BookshelfObject.id;
+  bookshelfs.push(BookshelfObject);
+
+  if (isCompleted) {
+    completedBookshelfList.append(bookshelf);
+  } else {
     uncompletedBookshelfList.append(bookshelf);
-    updateDataToStorage();
+  }
 
+  updateDataToStorage();
 }
 
-function addTaskToCompleted(taskElement /* HTMLELement */) {
-    const listCompleted = document.getElementById(COMPLETED_LIST_TODO_ID);
-    const taskTitle = taskElement.querySelector(".inner > h2").innerText;
-    const taskTimestamp = taskElement.querySelector(".inner > p").innerText;
+function addBookToFinished(taskElement /* HTMLELement */) {
+  const listCompleted = document.getElementById(COMPLETED_LIST_BOOKSHELF_ID);
 
-    const newTodo = makeTodo(taskTitle, taskTimestamp, true);
-    
+  const title = taskElement.querySelector("div.caption > h2").innerText;
 
-    const todo = findTodo(taskElement[TODO_ITEMID]);
-    todo.isCompleted = true;
-    newTodo[TODO_ITEMID] = todo.id;
+  const authorYear = taskElement.querySelector("div.caption > h4").innerText;
+  const author = authorYear.split(" - ")[0];
+  const year = authorYear.split(" - ")[1];
 
-    listCompleted.append(newTodo);
-    taskElement.remove();
+  const newBookshelf = makeBookshelf(title, author, year, true);
 
-    updateDataToStorage();
+  const bookshelf = findBookshelf(taskElement[BOOKSHELF_ITEMID]);
+  bookshelf.isCompleted = true;
+  newBookshelf[BOOKSHELF_ITEMID] = bookshelf.id;
+
+  listCompleted.append(newBookshelf);
+  taskElement.remove();
+
+  updateDataToStorage();
 }
 
 function removeBookshelfFromCompleted(taskElement /* HTMLELement */) {
+  const bookshelfPosition = findBookshelfIndex(taskElement[BOOKSHELF_ITEMID]);
+  bookshelfs.splice(bookshelfPosition, 1);
 
-    const bookshelfPosition = findBookshelfIndex(taskElement[BOOKSHELF_ITEMID]);
-    bookshelfs.splice(bookshelfPosition, 1);
-
-    taskElement.remove();
-    updateDataToStorage();
+  taskElement.remove();
+  updateDataToStorage();
 }
 
 function undoTaskFromCompleted(taskElement /* HTMLELement */) {
-    const listUncompleted = document.getElementById(UNCOMPLETED_LIST_TODO_ID);
-    const taskTitle = taskElement.querySelector(".inner > h2").innerText;
-    const taskTimestamp = taskElement.querySelector(".inner > p").innerText;
-    
-    const newTodo = makeTodo(taskTitle, taskTimestamp, false);
+  const listUncompleted = document.getElementById(UNCOMPLETED_LIST_TODO_ID);
+  const taskTitle = taskElement.querySelector(".inner > h2").innerText;
+  const taskTimestamp = taskElement.querySelector(".inner > p").innerText;
 
-    const todo = findTodo(taskElement[TODO_ITEMID]);
-    todo.isCompleted = false;
-    newTodo[TODO_ITEMID] = todo.id;
+  const newTodo = makeTodo(taskTitle, taskTimestamp, false);
 
-    listUncompleted.append(newTodo);
-    taskElement.remove();
-    
-    updateDataToStorage();
+  const todo = findTodo(taskElement[TODO_ITEMID]);
+  todo.isCompleted = false;
+  newTodo[TODO_ITEMID] = todo.id;
+
+  listUncompleted.append(newTodo);
+  taskElement.remove();
+
+  updateDataToStorage();
 }
 
 function refreshDataFromBookshelfs() {
-    const listUncompleted = document.getElementById(UNCOMPLETED_LIST_BOOKSHELF_ID);
-    let listCompleted = document.getElementById(COMPLETED_LIST_BOOKSHELF_ID);
+  let listUncompleted = document.getElementById(UNCOMPLETED_LIST_BOOKSHELF_ID);
+  let listCompleted = document.getElementById(COMPLETED_LIST_BOOKSHELF_ID);
 
-    for(bookshelf of bookshelfs){
-        const newBookshelf = makeBookshelf(bookshelf.title, bookshelf.author, bookshelf.year, bookshelf.isCompleted);
-        newBookshelf[BOOKSHELF_ITEMID] = bookshelf.id;
+  for (bookshelf of bookshelfs) {
+    const newBookshelf = makeBookshelf(
+      bookshelf.title,
+      bookshelf.author,
+      bookshelf.year,
+      bookshelf.isCompleted
+    );
+    newBookshelf[BOOKSHELF_ITEMID] = bookshelf.id;
 
-        if(bookshelf.isCompleted){
-            listCompleted.append(newBookshelf);
-        } else {
-            listUncompleted.append(newBookshelf);
-        }
+    if (bookshelf.isCompleted) {
+      listCompleted.append(newBookshelf);
+    } else {
+      listUncompleted.append(newBookshelf);
     }
+  }
 }

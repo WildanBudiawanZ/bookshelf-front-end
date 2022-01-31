@@ -1,4 +1,3 @@
-
 /* test */
 
 body {
@@ -19,7 +18,7 @@ h4 {
   color: #303030;
   font-weight: 400;
   margin-bottom: 30px;
-}  
+}
 .jumbotron {
   background-color: #f4511e;
   color: #fff;
@@ -50,7 +49,8 @@ h4 {
   height: 100%;
   margin-bottom: 10px;
 }
-.carousel-control.right, .carousel-control.left {
+.carousel-control.right,
+.carousel-control.left {
   background-image: none;
   color: #f4511e;
 }
@@ -71,12 +71,12 @@ h4 {
   font-style: normal;
 }
 .panel {
-  border: 1px solid #f4511e; 
-  border-radius:0 !important;
+  border: 1px solid #f4511e;
+  border-radius: 0 !important;
   transition: box-shadow 0.5s;
 }
 .panel:hover {
-  box-shadow: 5px 0px 40px rgba(0,0,0, .2);
+  box-shadow: 5px 0px 40px rgba(0, 0, 0, 0.2);
 }
 .panel-footer .btn:hover {
   border: 1px solid #f4511e;
@@ -119,10 +119,12 @@ h4 {
   border-radius: 0;
   font-family: Montserrat, sans-serif;
 }
-.navbar li a, .navbar .navbar-brand {
+.navbar li a,
+.navbar .navbar-brand {
   color: #fff !important;
 }
-.navbar-nav li a:hover, .navbar-nav li.active a {
+.navbar-nav li a:hover,
+.navbar-nav li.active a {
   color: #f4511e !important;
   background-color: #fff !important;
 }
@@ -135,7 +137,9 @@ footer .glyphicon {
   margin-bottom: 20px;
   color: #f4511e;
 }
-.slideanim {visibility:hidden;}
+.slideanim {
+  visibility: hidden;
+}
 .slide {
   animation-name: slide;
   -webkit-animation-name: slide;
@@ -147,7 +151,7 @@ footer .glyphicon {
   0% {
     opacity: 0;
     transform: translateY(70%);
-  } 
+  }
   100% {
     opacity: 1;
     transform: translateY(0%);
@@ -157,7 +161,7 @@ footer .glyphicon {
   0% {
     opacity: 0;
     -webkit-transform: translateY(70%);
-  } 
+  }
   100% {
     opacity: 1;
     -webkit-transform: translateY(0%);
@@ -189,35 +193,48 @@ footer .glyphicon {
   padding-bottom: 50px;
 }
 
-
 .shadow {
-  box-shadow: 0 5px 10px rgba(154, 160, 185, .05), 0 15px 40px rgba(166, 173, 201, .2);
+  box-shadow: 0 5px 10px rgba(154, 160, 185, 0.05),
+    0 15px 40px rgba(166, 173, 201, 0.2);
 }
 
-/*.trash-button{
-  background: url('../assets/trash-outline.svg');
+/*
+.trash-button {
+  background: url("../assets/trash-outline.svg");
   background-size: contain;
   width: 40px;
   height: 40px;
   margin-left: 16px;
   cursor: pointer;
   border: none;
-}*
+}
 
 .trash-button:hover {
-  background: url('../assets/trash-fill.svg');
+  background: url("../assets/trash-fill.svg");
   background-size: contain;
 }
 */
 
 .trash-button {
-  position:relative;
+  background-color: red;
+  font-size: medium;
+  color: black;
+  border: 2px solid red;
 }
 
-.trash-button:before {
-  font-family: FontAwesome;
-  top:0;
-  left:-5px;
-  padding-right:10px;
-  content: "\f0a9"; 
+.trash-button:hover {
+  background-color: orange;
+  color: white;
+}
+
+.finished-button {
+  background-color: green;
+  font-size: medium;
+  color: black;
+  border: 2px solid green;
+}
+
+.finished-button:hover {
+  background-color: orange;
+  color: white;
 }
