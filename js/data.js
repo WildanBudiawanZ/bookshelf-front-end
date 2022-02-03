@@ -14,22 +14,14 @@ function isStorageExist() /* boolean */ {
   return true;
 }
 
-/**
- * Fungsi ini digunakan untuk menyimpan data ke localStorage
- * berdasarkan KEY yang sudah ditetapkan sebelumnya.
- */
 function saveData() {
-  const parsed /* string */ = JSON.stringify(bookshelfs);
+  const parsed = JSON.stringify(bookshelfs);
   localStorage.setItem(STORAGE_KEY, parsed);
   document.dispatchEvent(new Event("ondatasaved"));
 }
 
-/**
- * Fungsi ini digunakan untuk memuat data dari localStorage
- * Dan memasukkan data hasil parsing ke variabel {@see bookshelfs}
- */
 function loadDataFromStorage() {
-  const serializedData /* string */ = localStorage.getItem(STORAGE_KEY);
+  const serializedData = localStorage.getItem(STORAGE_KEY);
 
   let data = JSON.parse(serializedData);
 
