@@ -34,7 +34,7 @@ function createUnfinishedButton() {
     function (event) {
       addBookToUnfinished(event.target.parentElement);
     },
-    "Pindah ke Rak Belum Dibaca"
+    "Pindahkan"
   );
 }
 
@@ -42,7 +42,10 @@ function createTrashButton() {
   return createButton(
     "trash-button",
     function (event) {
-      removeBookshelfFromCompleted(event.target.parentElement);
+      let result = confirm("Data buku akan dihapus. Apakah Anda yakin?");
+      if (result) {
+        removeBookshelfFromCompleted(event.target.parentElement);
+      }
     },
     "Hapus"
   );
@@ -54,7 +57,7 @@ function createFinishedButton() {
     function (event) {
       addBookToFinished(event.target.parentElement);
     },
-    "Pindah ke Selesai"
+    "Pindahkan"
   );
 }
 
