@@ -19,6 +19,7 @@ function makeBookshelf(title, author, year, isCompleted) {
 
   if (isCompleted) {
     container.append(createTrashButton());
+    container.append(createUnfinishedButton());
   } else {
     container.append(createTrashButton());
     container.append(createFinishedButton());
@@ -27,10 +28,14 @@ function makeBookshelf(title, author, year, isCompleted) {
   return container;
 }
 
-function createUndoButton() {
-  return createButton("undo-button", function (event) {
-    undoTaskFromCompleted(event.target.parentElement);
-  });
+function createUnfinishedButton() {
+  return createButton(
+    "unfinished-button",
+    function (event) {
+      addBookToUnfinished(event.target.parentElement);
+    },
+    "Pindah ke Rak Belum Dibaca"
+  );
 }
 
 function createTrashButton() {
@@ -49,7 +54,7 @@ function createFinishedButton() {
     function (event) {
       addBookToFinished(event.target.parentElement);
     },
-    "Selesai"
+    "Pindah ke Selesai"
   );
 }
 
@@ -126,18 +131,24 @@ function removeBookshelfFromCompleted(taskElement /* HTMLELement */) {
   updateDataToStorage();
 }
 
-function undoTaskFromCompleted(taskElement /* HTMLELement */) {
-  const listUncompleted = document.getElementById(UNCOMPLETED_LIST_TODO_ID);
-  const taskTitle = taskElement.querySelector(".inner > h2").innerText;
-  const taskTimestamp = taskElement.querySelector(".inner > p").innerText;
+function addBookToUnfinished(taskElement /* HTMLELement */) {
+  const listUncompleted = document.getElementById(
+    UNCOMPLETED_LIST_BOOKSHELF_ID
+  );
 
-  const newTodo = makeTodo(taskTitle, taskTimestamp, false);
+  const title = taskElement.querySelector("div.caption > h2").innerText;
 
-  const todo = findTodo(taskElement[TODO_ITEMID]);
-  todo.isCompleted = false;
-  newTodo[TODO_ITEMID] = todo.id;
+  const authorYear = taskElement.querySelector("div.caption > h4").innerText;
+  const author = authorYear.split(" - ")[0];
+  const year = authorYear.split(" - ")[1];
 
-  listUncompleted.append(newTodo);
+  const newBookshelf = makeBookshelf(title, author, year, false);
+
+  const bookshelf = findBookshelf(taskElement[BOOKSHELF_ITEMID]);
+  bookshelf.isCompleted = false;
+  newBookshelf[BOOKSHELF_ITEMID] = bookshelf.id;
+
+  listUncompleted.append(newBookshelf);
   taskElement.remove();
 
   updateDataToStorage();

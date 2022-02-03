@@ -238,3 +238,15 @@ footer .glyphicon {
   background-color: orange;
   color: white;
 }
+
+.unfinished-button {
+  background-color: green;
+  font-size: medium;
+  color: black;
+  border: 2px solid green;
+}
+
+.unfinished-button:hover {
+  background-color: orange;
+  color: white;
+}
